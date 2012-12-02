@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body>
+
+	<h1>vmouse events</h1>
+
+	<div class="hitbox" id="test-vmouseout">vmouseout</div>
+	<br>
+	<div class="hitbox" id="test-vmouseover">vmouseover</div>
+	<br>
+	<div class="hitbox" id="test-vmousedown">vmousedown</div>
+	<br>
+	<div class="hitbox" id="test-vmousemove">vmousemove</div>
+	<br>
+	<div class="hitbox" id="test-vmouseup">vmouseup</div>
+	<br>
+	<div class="hitbox" id="test-vmousecancel">vmousecancel</div>
+	<br>
+	<div class="hitbox" id="test-vclick">vclick</div>
+	<br>
+
+	<h1>touch events</h1>
+
+	<div class="hitbox" id="test-tap">tap</div>
+	<br>
+	<div class="hitbox" id="test-taphold">taphold</div>
+	<br>
+	<div class="hitbox" id="test-swipe">swipe</div>
+	<br>
+	<div class="hitbox" id="test-swipeleft">swipeleft</div>
+	<br>
+	<div class="hitbox" id="test-swiperight">swiperight</div>
+	<br>
+
+	<h1>scroll events</h1>
+
+	<section class="testinfoblock">
+		<h1>scrollstart/stop test</h1>
+		<div id="test-scrollstartstop">no events occured yet</div>
+	</section>
+	<br>
+
+	<h1>etc</h1>
+
+	<section class="testinfoblock">
+		<h1>orientationchange test</h1>
+		<div>occured: <span id="test-orientationchange-occured">0</span></div>
+		<div>e.orientation: <span id="test-orientationchange-orientation">-</span></div>
+	</section>
+	<br>
+
+
+</body>
+</html>

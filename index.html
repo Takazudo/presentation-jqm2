@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>jQuery mobile のイケてる実装</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/takazudo.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section class="slide-top">
+					<h1>jQuery mobile の<br>イケてる実装</h1>
+					<p><a href="http://twitter.com/Takazudo">@Takazudo</a></p>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## なぜjQuery mobileは<br>かったるいか
+
+* 素敵な見栄えとか別にいらん
+* なんか素敵な遷移するらしいけどめんどそう
+* いじるの大変そう
+* スクラッチで作る時に使うとかったるそう
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## でもjQuery mobileはなかなかイケてると思う
+
+* モバイルでつまづくことの解決策が<br>jQuery mobileのコードに結構書いてある
+* ちゃんとコンポーネントごとにコードが整理されてる
+* ダウンロードビルダーで必要なものだけ使える
+* ドキュメントにモバイルでの罠が色々書いてある
+
+<p class="finally">勉強にも実用にもかなりイイ</p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 今日紹介するやつ
+
+* touchイベント
+* scrollイベント
+* loader widget
+* navigation
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## めんどくさいtouch系イベント
+
+* 非touch deviceではmouse events
+* touch deviceではtouch events
+* これをnormalizeするのが[pointer events](http://www.w3.org/Submission/pointer-events/)
+* でもpointer eventsはまだこれから
+
+<p class="finally">要するにtouchイベント周りはめんどい</p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## vmouseイベント
+
+mouse と touch をnormalizeした virtual mouseイベント
+
+* `vmouseover` / `vmouseout` 
+* `mousemove`
+* `vmousedown` `vmouseup`
+* `vclick`
+* `vmousecancel`
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 見てみる
+
+* [デモ](./examples/01/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## touchイベント
+
+vmouseの上にのっかってくるのがjQuery mobileのtouchイベント
+
+* `tap` - いわゆるクリック
+* `taphold` - 触ってしばらくすると
+* `swipe` - 触って30px動かす
+* `swiperight` - 右方向にswipe
+* `swipeleft` - 左方向にswipe
+
+<p class="finally">vmouseベースなのでPCでも動く</p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 見てみる
+
+* [デモ](./examples/01/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## scrollイベント
+
+* `scrollstart`
+* `scrollstop`
+
+なぜこのイベントは必要か？  
+
+iOSのscrollイベント起こらない問題
+
+それをnormailzeしたのがこのイベント
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 見てみる
+
+* [デモ](./examples/01/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## orientationchangeイベント
+
+* `landscape` とか `portrait` で教えてくれる
+* 非対応環境もpolyfill的にカバーしてくれる
+
+[デモ](./examples/01/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## イベントまとめ
+
+イベント系は自分で実装するのが手間  
+しかし場合によっては避けて通れない  
+
+jQuery mobileの資産を有効利用しましょう
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Loading widget
+
+真ん中でくるくるするアレ
+
+* position:fixed対応がめんどいけどうまいことやってくれる
+* loader自体はjQuery ui widgetベースでできてる
+* $.mobile.loading に loaderのインスタンスが生えてる
+
+こういうのやりたいことあるので地味に便利かも
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 使い方カンタン
+
+	$.mobile.loading('show', {
+		text: 'message'
+		textVisible: true
+	});
+
+	$.mobile.loading('hide');
+
+カスタムのHTMLも出せる
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## 見てみる
+
+* [デモ](./examples/02/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## navigation
+
+これは何か
+
+* [デモ](./examples/03/1.html)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## pushState is hell
+
+pushStateで普通に遷移しているように見せるにはどうするか？  
+
+* ページの断片ajax、DOMを更新？
+* しかし非対応環境には...
+* そう考えると各ページは普通のHTMLである必要がある
+* HTMLを取得して必要な部分だけ正規表現でとってくる<br>→ それを元にページを更新
+
+<p class="finally">いろいろと面倒</p>
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## navigationの素敵な実装1
+
+* 同じドメインか
+* POST/GET
+* transitionsと方向
+* loading表示
+* title変更
+
+などなど色々とよく作られてる
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## navigationの素敵な実装2
+
+* pushStateが利用できない<br>→ hashchangeで同じ事をしてくれる
+* 実はhashchangeで遷移<br>→ hisory.replaceStateでpushState遷移に見せてる
+* 気の利いたイベント多数
+* プラグインとしてURLルーターも導入可能 ([参考](http://jquerymobile.com/test/docs/pages/page-navmodel.html)）
+
+mobileだけではもったいないほどのよくできた感
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+## まとめ
+
+* なかなかヘビーな土台となるものの
+* 一つ一つが作りこまれていて
+* コンポーネント毎にちゃんと独立している
+* つまり jQuery mobile の実装はイケてる
+
+続く（かも）
+					</script>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+				//autoSlide: 1000,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
